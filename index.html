@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentines Mum❤️</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js"></script>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f8f8f8;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background Kiss Layer */
+        .background-kisses {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Layout */
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            padding: 0 8%;
+        }
+
+        .left {
+            max-width: 500px;
+        }
+
+        .top-text {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            color: #999;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .quote span {
+            display: block;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Image */
+        .right img {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        /* Floating Kisses */
+        .kiss {
+            position: absolute;
+            font-size: 26px;
+            opacity: 0.7;
+            animation: floatKiss linear infinite;
+        }
+
+        @keyframes floatKiss {
+            from {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Music Button */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            z-index: 3;
+        }
+
+        .music-btn:hover {
+            background: #d62839;
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+
+            .right img {
+                margin-top: 30px;
+            }
+        }
+    </style>
+    </head>
+
+    <body>
+
+        <div class="background-kisses"></div>
+
+        <div class="container">
+            <div class="left">
+                <p class="top-text">
+                    Thank you for being in my life and wish you a very
+                </p>
+
+                <h1>Happy Valentine’s<br>Day, Mum</h1>
+
+                <p class="quote">
+                    “All that I am, or hope to be, I owe to my angel mother.”
+                    <span>-Abraham Lincoln</span>
+
+                    <br><br>
+                    <hr>
+                    <b>Happy Valentine’s Day, Mum❤️
+                        “Happy Valentine’s Day, Mum 💖
+                        Thank you for your endless love, your hugs, and everything you do for me every single day. I’m
+                        so lucky to have you. Love you always!”
+
+
+                </p>
+            </div>
+
+            <div class="right">
+                <img src="images/mum.jpg" alt="mum ">
+            </div>
+        </div>
+
+
+
+
+        <!-- Background Music -->
+        <audio id="bg-music" loop>
+            <source src="music/Fontaines D.C. - I Love You (Official Video).mp3" type="audio/mpeg">
+        </audio>
+
+        <button class="music-btn" onclick="toggleMusic()">🔊</button>
+
+        <script>
+            // Floating Side Kisses Only
+            const kissContainer = document.querySelector(".background-kisses");
+
+            function createKiss() {
+                const kiss = document.createElement("div");
+                kiss.classList.add("kiss");
+                kiss.innerHTML = "💋";
+
+                const screenWidth = window.innerWidth;
+
+                let position;
+                if (Math.random() < 0.5) {
+                    // Left 25%
+                    position = Math.random() * (screenWidth * 0.25);
+                } else {
+                    // Right 25%
+                    position = screenWidth * 0.75 + Math.random() * (screenWidth * 0.25);
+                }
+
+                kiss.style.left = position + "px";
+                kiss.style.fontSize = Math.random() * 20 + 20 + "px";
+                kiss.style.animationDuration = Math.random() * 5 + 6 + "s";
+
+                kissContainer.appendChild(kiss);
+
+                setTimeout(() => {
+                    kiss.remove();
+                }, 10000);
+            }
+
+            setInterval(createKiss, 600);
+
+            // Background Music
+            const music = document.getElementById("bg-music");
+            const btn = document.querySelector(".music-btn");
+
+            window.addEventListener("load", () => {
+                music.volume = 0.5;
+                music.play().catch(() => {
+                    console.log("Autoplay blocked until interaction.");
+                });
+            });
+
+            function toggleMusic() {
+                if (music.paused) {
+                    music.play();
+                    btn.innerHTML = "🔊";
+                } else {
+                    music.pause();
+                    btn.innerHTML = "🔇";
+                }
+            }
+
+            // Mobile autoplay support
+            document.addEventListener("click", function initMusic() {
+                if (music.paused) {
+                    music.play();
+                }
+                document.removeEventListener("click", initMusic);
+            });
+        </script>
+
+
+
+
+    </body>
+
+</html>
